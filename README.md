@@ -1,6 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 # Connor Notes
-TodoItem dynamic class not working. 39:00 in video
+Div and button not agreeing in TodoItem.js
+53:00 minutes into video.
 
 
 ## Available Scripts
