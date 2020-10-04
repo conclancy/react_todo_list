@@ -1,23 +1,25 @@
 import React from 'react';
+import {v4 as uuid} from 'uuid';
 import Navbar from './components/layout/navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TaskTable from './components/taskTable/TaskTable';
+import AddTaskRow from './components/taskTable/AddTaskRow';
 
 class App extends React.Component {
   state = {
     todos: [
       {
-        id: 1,
+        id: uuid(),
         title: 'take out the trash', 
         completed: false
       },
       {
-        id: 2,
+        id: uuid(),
         title: 'dishes', 
         completed: false
       },
       {
-        id: 3,
+        id: uuid(),
         title: 'feed hellen', 
         completed: false
       },
@@ -39,11 +41,24 @@ class App extends React.Component {
     this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)]})
   }
 
+  // Add Task
+  addTask = (title) => {
+    const newTask = {
+      id: uuid(),
+      title,
+      completed: false
+    }
+    this.setState({ todos: [...this.state.todos, newTask]})
+  }
+
   render() {
     return (
       <div className="App">
-        <Navbar />
-        <TaskTable todos={this.state.todos} toggleComplete={this.toggleComplete} delTask={this.delTask}/>
+        <div className="container">
+          <Navbar />
+          <TaskTable todos={this.state.todos} toggleComplete={this.toggleComplete} delTask={this.delTask}/>
+          <AddTaskRow addTask={this.addTask} />
+        </div>
       </div>
     );
   }
