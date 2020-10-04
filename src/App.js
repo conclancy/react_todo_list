@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Todos from './components/todos/Todos';
+// import Todos from './components/todos/Todos';
+import TaskTable from './components/taskTable/TaskTable'
 
 class App extends React.Component {
   state = {
@@ -37,7 +38,7 @@ class App extends React.Component {
     return (
       <div className="App">
        <h1>App</h1>
-       <Todos todos={this.state.todos} toggleComplete={this.toggleComplete}/>
+       <TaskTable todos={this.state.todos} toggleComplete={this.toggleComplete}/>
       </div>
     );
   }
