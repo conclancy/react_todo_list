@@ -1,8 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-# Connor Notes
-Div and button not agreeing in TodoItem.js
-53:00 minutes into video.
-
+# Connor Todos
+Add thumbnails and toggle abilities.
 
 ## Available Scripts
 
