@@ -1,7 +1,7 @@
 import React from 'react';
+import Navbar from './components/layout/navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import Todos from './components/todos/Todos';
-import TaskTable from './components/taskTable/TaskTable'
+import TaskTable from './components/taskTable/TaskTable';
 
 class App extends React.Component {
   state = {
@@ -33,12 +33,17 @@ class App extends React.Component {
       return todo;
     }) });
   }
+  
+  // Delete Todo Task
+  delTask = (id) => {
+    this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)]})
+  }
 
   render() {
     return (
       <div className="App">
-       <h1>App</h1>
-       <TaskTable todos={this.state.todos} toggleComplete={this.toggleComplete}/>
+        <Navbar />
+        <TaskTable todos={this.state.todos} toggleComplete={this.toggleComplete} delTask={this.delTask}/>
       </div>
     );
   }

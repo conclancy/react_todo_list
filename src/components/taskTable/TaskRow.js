@@ -16,16 +16,8 @@ export class TaskItem extends Component {
             <tr className={this.getClass()}>
                 <td><input type="checkbox" onChange={this.props.toggleComplete.bind(this, id)}/></td>
                 <td>{ title }</td>
-                <td><button type="button" className="float-right btn btn-danger btn-sm">delete</button></td>
+                <td><button type="button" onClick={this.props.delTask.bind(this, id)} className="float-right btn btn-danger btn-sm">delete</button></td>
             </tr>
-            // <div className={this.getClass()}>
-            //     <p>
-            //         <input type="checkbox" onChange={this.props.toggleComplete.bind(this, id)}/>
-            //         {' '}
-            //         { title }
-            //         <button type="button" className="float-right btn btn-danger btn-sm">delete</button>
-            //     </p>
-            // </div>
         )
     }
 }
