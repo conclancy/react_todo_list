@@ -1,29 +1,21 @@
 import React from 'react';
-import {v4 as uuid} from 'uuid';
-import Navbar from './components/layout/navbar';
+import { BrowserRouter as Router, Route} from 'react-router-dom'
+import axios from 'axios';
+import nbar from './components/layout/navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TaskTable from './components/taskTable/TaskTable';
-import AddTaskRow from './components/taskTable/AddTaskRow';
+import AddTaskRow from './components/taskTable/AddTaskRow'
+import About from './components/pages/About';
+
 
 class App extends React.Component {
   state = {
-    todos: [
-      {
-        id: uuid(),
-        title: 'take out the trash', 
-        completed: false
-      },
-      {
-        id: uuid(),
-        title: 'dishes', 
-        completed: false
-      },
-      {
-        id: uuid(),
-        title: 'feed hellen', 
-        completed: false
-      },
-    ]
+    todos: []
+  }
+
+  componentDidMount() {
+    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10&completed=false')
+      .then(res => this.setState({todos: res.data}))
   }
 
   // Toggle Complete
@@ -38,28 +30,39 @@ class App extends React.Component {
   
   // Delete Todo Task
   delTask = (id) => {
-    this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)]})
+    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)]}));
+    //
   }
 
   // Add Task
   addTask = (title) => {
-    const newTask = {
-      id: uuid(),
+    axios.post('https://jsonplaceholder.typicode.com/todos', {
       title,
       completed: false
-    }
-    this.setState({ todos: [...this.state.todos, newTask]})
+    })
+      .then(res => this.setState({
+        todos: [...this.state.todos, res.data]
+      }));
+    //this.setState({ todos: [...this.state.todos, newTask]})
   }
 
   render() {
     return (
-      <div className="App">
-        <div className="container">
-          <Navbar />
-          <TaskTable todos={this.state.todos} toggleComplete={this.toggleComplete} delTask={this.delTask}/>
-          <AddTaskRow addTask={this.addTask} />
+      <Router>
+        <div className="App">
+          <div className="container">
+            <Route path ="/" render={nbar} />
+            <Route exact path="/" render={props => (
+              <React.Fragment>
+                 <TaskTable todos={this.state.todos} toggleComplete={this.toggleComplete} delTask={this.delTask}/>
+              <AddTaskRow addTask={this.addTask} />
+              </React.Fragment>
+            )} />
+            <Route path="/about" render={About} />
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
